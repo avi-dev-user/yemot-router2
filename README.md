@@ -1,11 +1,8 @@
 # yemot-router
 
-Because I do not know English, the documents are now in Hebrew.
-With the help of God in teaching English, I'll translate that.
-
 <div dir="rtl" text-align="right">
 
-לתכנת מערכות מתקדמות ב'ימות-המשיח' בקלות באמצעות [מודול API](https://f2.freeivr.co.il/post/76).
+לתכנת מערכות מתקדמות בקלות באמצעות [מודול API](https://f2.freeivr.co.il/post/76) של 'ימות המשיח'.
 
 # התקנה (NodeJS)
 
@@ -238,7 +235,7 @@ let options = {
 
 </details>
 
-### `go_to_folder(folder: string): void`
+### `go_to_folder(folder: string)`
 
 מתודה להעברת השיחה לשלוחה מסוימת במערכת הנוכחית.
 ניתן לכתוב נתיב יחסי לשלוחה הנוכחית או לשלוחה הראשית. פירוט על האופציות ניתן לקרוא [כאן](https://f2.freeivr.co.il/post/58).
