@@ -10,15 +10,15 @@ describe("testeing in yemot-router", () => {
 
 			const make_read_response = response_functions.make_read_response;
 
-			let massage = [];
+			let message = [];
 			let options = {};
 			let r = "";
 
 			it("", () => {
 
-				massage = [{ type: "text", data: "hay, is text!" }];
+				message = [{ type: "text", data: "hay, is text!" }];
 
-				r = make_read_response(massage, "tap", options);
+				r = make_read_response(message, "tap", options);
 
 				assert.equal(r[0], "read=t-hay, is text!=,val_1,no,*,1,7,Number,false,true,,,,");
 				assert.equal(r[1], "val_1");

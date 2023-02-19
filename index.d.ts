@@ -1,7 +1,9 @@
-export declare function YemotRouter(options?: { timeout: number }): YemotRouter;
+export declare function YemotRouter(options?: { timeout: number, printLog: boolean, uncaughtErrorsHandler: function }): YemotRouter;
 
 interface YemotRouter {
-    add_fn: (path: string, handler: Handler) => void;
+    get: (path: string, handler: Handler) => void;
+    post: (path: string, handler: Handler) => void;
+    all: (path: string, handler: Handler) => void;
 }
 export type Call = {
     did: string;
@@ -11,7 +13,7 @@ export type Call = {
     extension: string;
     query: object;
 
-    read(massage: msg_data, mode?: mode, options?: read_options): Promise<String | false>;
+    read(message: msg_data, mode?: mode, options?: read_options): Promise<String | false>;
 
     go_to_folder(folder: string): void;
 

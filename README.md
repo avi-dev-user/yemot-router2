@@ -20,7 +20,27 @@ npm i yemot-router
 מחלקת הראוטר מקבלת כפרמטר פונקציית קולבק (CallBack), שהפרמטר שלה הוא אובייקט ה`Call`.
 עם המתודות של האובייקט הזה, ניתן להפעיל ולהפנות את המשתמש.
 
-# Change log
+# **Changelog**
+<details>
+<summary>5.0.0</summary>
+
+גרסה 5 כוללת שינויים רבים, כולל שינויים שוברים, ושכתוב משמעותי של הAPI הפנימי.
+שינויים שוברים עיקריים:
+
+- שם המחלקה `Yemot_router` הוחלף ל `YemotRouter`
+- הפרמטרים מהurl לא מוזרקים אוטומטית לאובייקט הcall, אלא זמינים תחת call.req - `call.req.params`/`call.req.query`, בהתאמה, או בקיצור - `call.params`/`call.query`.
+- סוג שגיאה חדש: `InputValidationError` - נפלט כאשר הועבר קלט לא חוקי, למשל השמעת הודעת טקסט המכילה תו נקודה.
+- ניתן להשתמש במתודות get/post/all כמו באקספרס רגיל. כרגע מתודת `add_fn` נשמרת לצורך תאימות, אבל מומלץ לעדכן.
+- `lenght_min` בread מסוג הקלטה תוקן ל`length_min`, כנ"ל `length_max` תוקן ל`length_max`. כרגע הכתיב השגוי עדיין נתמך, אבל יוסר בהמשך.
+- שליטה באתחול הראוטר האם יודפסו לוגים פנימיים של הספריה (ברירת מחדל לא - בשונה מבגרסאות הקודמות)
+- שמות משתנים הומרו לCamelCase כמקובל, לדוגמה `call_id` הומר ל`callId` וכן הלאה.
+
+בנוסף שיפורים ושינויים רבים לא שוברים, לדוגמה:
+
+- לוג מפורט בהעברת תווים לא חוקיים
+- אפשרות העברת מטפל לשגיאות כלליות שלא נתפסו - לא שגיאות פנימיות של הספריה כמו ExitError, אלא שגיאה לא צפויה. מאפשר לדוגמה לשלוח מייל למפתח עם לוג מפורט, ולהשמיע למשתמש הודעת שגיאה כללית במקום שהתהליך יקרוס.
+- שינויים ושיפורים רבים נוספים מאחורי הקלעים.
+</details>
 
 <details>
 <summary>4.0.0</summary>
@@ -32,7 +52,7 @@ npm i yemot-router
 
 ניתן לתפוס אותה להתנהגות מותאמת אישית (ראה דוגמה בקובץ `exemple.js/.`),
 
-או להתעלם, לעצירה של הסקריפט.
+או להתעלם, לעצירה של ריצת הפונקציה (ללא עצירה של התהליך כולו, כיוון שהשגיאה יותר גבוה - ע"י הספריה)
 
 </details>
 
@@ -40,7 +60,7 @@ npm i yemot-router
 
 <div dir="ltr" text-align="left">
 
-./exemple.js
+[./exemple.js](exemple.js)
 
 <div dir="rtl" text-align="right">
 
@@ -48,14 +68,14 @@ npm i yemot-router
 
 <div dir="ltr" text-align="left">
 
-### `read(massage : [], mode : string, options : {}) : Promise`
+### `read(message : [], mode : string, options : {}) : Promise`
 
 מתודה לשאילת שאלה את המשתמש, וקבלת התשובה מתי שתגיע, ע"י הבטחה (Promise).
 
 <details>
 <div dir="rtl" text-align="right">
 
-#### הפרמטר `massage`
+#### הפרמטר `message`
 
 הפרמטר הראשון, הוא השאלה שהמשתמש ישמע. מערך של אובייקטים, שכל אחד מהם הוא קובץ או הקראה, שתושמע למשתמש.
 
@@ -64,8 +84,8 @@ npm i yemot-router
 <div dir="ltr" text-align="left">
 
 ```js
-let massage = [{ type: "text", data: "היי, תקיש 10" }];
-let massage = [{ type: "text", data: "היי, תקיש 10" }];
+let message = [{ type: "text", data: "היי, תקיש 10" }];
+let message = [{ type: "text", data: "היי, תקיש 10" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -73,7 +93,7 @@ let massage = [{ type: "text", data: "היי, תקיש 10" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let massage = [{ type: "file", data: "000" }];
+let message = [{ type: "file", data: "000" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -81,7 +101,7 @@ let massage = [{ type: "file", data: "000" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let massage = [{ type: "number", data: "512" }];
+let message = [{ type: "number", data: "512" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -89,7 +109,7 @@ let massage = [{ type: "number", data: "512" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let massage = [{ type: "digits", data: "077313770" }];
+let message = [{ type: "digits", data: "077313770" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -98,7 +118,7 @@ let massage = [{ type: "digits", data: "077313770" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let massage = [{ type: "speech", data: "000" }];
+let message = [{ type: "speech", data: "000" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -107,7 +127,7 @@ let massage = [{ type: "speech", data: "000" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let massage = [{ type: "alpha", data: "abc@gmail.com" }];
+let message = [{ type: "alpha", data: "abc@gmail.com" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -227,9 +247,9 @@ let options = {
 
   record_attach: false,
 
-  lenght_min: "",
+  length_min: "",
 
-  lenght_max: "",
+  length_max: "",
 };
 ```
 
@@ -250,7 +270,7 @@ let options = {
 go_to_folder(`/${call.ApiExtension}`);
 ```
 
-### `id_list_message(massages: array, wait_to_more_action: Boolean)`
+### `id_list_message(messages: array, wait_to_more_action: Boolean)`
 
 במתודה זו ניתן להשמיע למשתמש הודעה אחת, או מספר הודעות ברצף.
 
@@ -338,7 +358,7 @@ go_to_folder(`/${call.ApiExtension}`);
 לדוגמה, עבור השמעת זמן שקיעת החמה מחר בעיר בני ברק:
 
 ```js
-let massage = [
+let message = [
   {
     type: "zmanim",
     data: {

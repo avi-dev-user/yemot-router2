@@ -1,19 +1,28 @@
 const express = require('express');
 const app = express();
-const { YemotRouter } = require('./');
+const { YemotRouter, HangupError } = require('./index');
 
-const y = YemotRouter();
+const router = YemotRouter({
+    printLog: true,
+    uncaughtErrorsHandler: (error, call) => {
+        console.log(`Uncaught error in ${call.req.path} from ${call.phone}. error stack: ${error.stack}`);
+        // do something with the error - like send email to developer, print details log, etc.
+        return call.id_list_message([{ type: 'text', data: 'אירעה שגיאה' }]); // play nice error message to the caller
+    }
+});
 
-y.add_fn('/', async (call) => {
-    let massage = [{ type: 'text', data: 'היי, תקיש 10' }];
-    let r = await call.read(massage)
+router.get('/', async (call) => {
+    let message = [{ type: 'text', data: 'היי, תקיש 10' }];
+    let r = await call.read(message)
         .catch(error => {
-            if (error.name === 'HangupError') { console.log(error.call.phone, 'hangup'); }
-            throw error;
+            if (error instanceof HangupError) {
+                // do something with the event, and then throw the error again for stop the run
+            }
+            throw error; // throw the error again if it's not a HangupError
         });
 
-    massage = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
-    r = await call.read(massage, 'tap', { play_ok_mode: 'HebrewKeyboard' })
+    message = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
+    r = await call.read(message, 'tap', { play_ok_mode: 'HebrewKeyboard' })
         .catch(error => {
             if (error.name === 'HangupError') { console.log(error.call.phone, 'hangup'); }
             throw error;
@@ -21,28 +30,28 @@ y.add_fn('/', async (call) => {
 
     console.log(r);
 
-    massage = [
+    message = [
         { type: 'text', data: 'שלום ' + r },
         { type: 'text', data: 'אנא הקלט את הרחוב בו אתה גר' }
     ];
-    r = await call.read(massage, 'record');
+    r = await call.read(message, 'record');
 
     console.log(r);
 
-    massage = [{ type: 'text', data: 'אנא אמור את שם הרחוב בו אתה גר' }];
-    r = await call.read(massage, 'stt');
+    message = [{ type: 'text', data: 'אנא אמור את שם הרחוב בו אתה גר' }];
+    r = await call.read(message, 'stt');
 
     console.log(r);
 
-    massage = [{ type: 'text', data: 'אמרת' }];
-    r = await call.id_list_message(massage, true);
+    message = [{ type: 'text', data: 'אמרת' }];
+    r = await call.id_list_message(message, true);
 
     console.log(r);
 
     call.go_to_folder('/1');
 });
 
-app.use('/', y);
+app.use('/', router);
 
 const port = 3000;
 app.listen(port, () => {
