@@ -9,7 +9,7 @@
 <div dir="ltr" text-align="left">
 
 ```bash
-npm i yemot-router
+npm i yemot-router2
 ```
 
 <div dir="rtl" text-align="right">
