@@ -13,11 +13,11 @@ export type Call = {
     extension: string;
     query: object;
 
-    read(message: msg_data, mode?: mode, options?: read_options): Promise<String | false>;
+    read(messages: [msg_data], mode?: mode, options?: read_options): Promise<String | false>;
 
     go_to_folder(folder: string): void;
 
-    id_list_message(data: msg_data, wait_to_more_action: boolean): void;
+    id_list_message(data: [msg_data], wait_to_more_action: boolean): void;
 
     routing_yemot(phone: string): void;
 

@@ -12,8 +12,8 @@ const router = YemotRouter({
 });
 
 router.get('/', async (call) => {
-    let message = [{ type: 'text', data: 'היי, תקיש 10' }];
-    let r = await call.read(message)
+    let messages = [{ type: 'text', data: 'היי, תקיש 10' }];
+    let r = await call.read(messages)
         .catch(error => {
             if (error instanceof HangupError) {
                 // do something with the event, and then throw the error again for stop the run
@@ -21,8 +21,8 @@ router.get('/', async (call) => {
             throw error; // throw the error again if it's not a HangupError
         });
 
-    message = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
-    r = await call.read(message, 'tap', { play_ok_mode: 'HebrewKeyboard' })
+    messages = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
+    r = await call.read(messages, 'tap', { play_ok_mode: 'HebrewKeyboard' })
         .catch(error => {
             if (error.name === 'HangupError') { console.log(error.call.phone, 'hangup'); }
             throw error;
@@ -30,21 +30,21 @@ router.get('/', async (call) => {
 
     console.log(r);
 
-    message = [
+    messages = [
         { type: 'text', data: 'שלום ' + r },
         { type: 'text', data: 'אנא הקלט את הרחוב בו אתה גר' }
     ];
-    r = await call.read(message, 'record');
+    r = await call.read(messages, 'record');
 
     console.log(r);
 
-    message = [{ type: 'text', data: 'אנא אמור את שם הרחוב בו אתה גר' }];
-    r = await call.read(message, 'stt');
+    messages = [{ type: 'text', data: 'אנא אמור את שם הרחוב בו אתה גר' }];
+    r = await call.read(messages, 'stt');
 
     console.log(r);
 
-    message = [{ type: 'text', data: 'אמרת' }];
-    r = await call.id_list_message(message, true);
+    messages = [{ type: 'text', data: 'אמרת' }];
+    r = await call.id_list_message(messages, true);
 
     console.log(r);
 

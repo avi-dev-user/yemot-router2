@@ -74,14 +74,14 @@ npm i yemot-router2
 
 <div dir="ltr" text-align="left">
 
-### `read(message : [], mode : string, options : {}) : Promise`
+### `read(messages : [], mode : string, options : {}) : Promise`
 
 מתודה לשאילת שאלה את המשתמש, וקבלת התשובה מתי שתגיע, ע"י הבטחה (Promise).
 
 <details>
 <div dir="rtl" text-align="right">
 
-#### הפרמטר `message`
+#### הפרמטר `messages`
 
 הפרמטר הראשון, הוא השאלה שהמשתמש ישמע. מערך של אובייקטים, שכל אחד מהם הוא קובץ או הקראה, שתושמע למשתמש.
 
@@ -90,8 +90,8 @@ npm i yemot-router2
 <div dir="ltr" text-align="left">
 
 ```js
-let message = [{ type: "text", data: "היי, תקיש 10" }];
-let message = [{ type: "text", data: "היי, תקיש 10" }];
+let messages = [{ type: "text", data: "היי, תקיש 10" }];
+let messages = [{ type: "text", data: "היי, תקיש 10" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -99,7 +99,7 @@ let message = [{ type: "text", data: "היי, תקיש 10" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let message = [{ type: "file", data: "000" }];
+let messages = [{ type: "file", data: "000" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -107,7 +107,7 @@ let message = [{ type: "file", data: "000" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let message = [{ type: "number", data: "512" }];
+let messages = [{ type: "number", data: "512" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -115,7 +115,7 @@ let message = [{ type: "number", data: "512" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let message = [{ type: "digits", data: "077313770" }];
+let messages = [{ type: "digits", data: "077313770" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -124,7 +124,7 @@ let message = [{ type: "digits", data: "077313770" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let message = [{ type: "speech", data: "000" }];
+let messages = [{ type: "speech", data: "000" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -133,7 +133,7 @@ let message = [{ type: "speech", data: "000" }];
 <div dir="ltr" text-align="left">
 
 ```js
-let message = [{ type: "alpha", data: "abc@gmail.com" }];
+let messages = [{ type: "alpha", data: "abc@gmail.com" }];
 ```
 
 <div dir="rtl" text-align="right">
@@ -364,7 +364,7 @@ go_to_folder(`/${call.ApiExtension}`);
 לדוגמה, עבור השמעת זמן שקיעת החמה מחר בעיר בני ברק:
 
 ```js
-let message = [
+let messages = [
   {
     type: "zmanim",
     data: {
