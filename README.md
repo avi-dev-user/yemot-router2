@@ -2,7 +2,7 @@
 
 <div dir="rtl" text-align="right">
 
-לתכנת מערכות מתקדמות בקלות באמצעות [מודול API](https://f2.freeivr.co.il/post/76) של 'ימות המשיח'.
+לתכנת מערכות טלפוניות בקלות באמצעות [מודול API](https://f2.freeivr.co.il/post/76) של 'ימות המשיח'.
 
 # התקנה (NodeJS)
 
@@ -16,14 +16,18 @@ npm i yemot-router2
 
 # שימוש
 
-התקשורת עם המשתמש, נעשית דרך האובייקט `Call`.
-מחלקת הראוטר מקבלת כפרמטר פונקציית קולבק (CallBack), שהפרמטר שלה הוא אובייקט ה`Call`.
-עם המתודות של האובייקט הזה, ניתן להפעיל ולהפנות את המשתמש.
+הספריה עובדת על ידי חיקוי של Express Router,
+ הראוטר מקבל פונקצייה אסינכרונית (CallBack), שהארגומנט שלה הוא אובייקט ה`Call`,
+ 
+עם המתודות של האובייקט הזה, ניתן להשמיע/לבקש נתונים מהמחייג, להפנות אותו לשלוחה אחרת, ועוד.
+
+ראה דוגמה ב [exemple.js](exemple.js)
 
 # **Changelog**
 <details>
-<summary>5.0.0</summary>
+<summary>5.0.0 - 5.1.1</summary>
 
+**5.0.0**
 גרסה 5 כוללת שינויים רבים, כולל שינויים שוברים, ושכתוב משמעותי של הAPI הפנימי.
 שינויים שוברים עיקריים:
 
@@ -334,7 +338,7 @@ go_to_folder(`/${call.ApiExtension}`);
 {
  time: string, // optional, default: "T" (current time)
  zone: string // optional, default: "IL/Jerusalem",
- difference: string
+ difference: string // optional, default: 0
 }
 ```
 
