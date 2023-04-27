@@ -50,6 +50,10 @@ type read_options = {
 
     lang: string;
     allow_typing: boolean;
+    max_digits?: number;
+    use_records_engine: boolean;
+    quiet_max?: number;
+    length_max?: number;
 
     path: string;
     file_name: string;
