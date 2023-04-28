@@ -51,6 +51,8 @@ router.get('/', async (call) => {
     call.go_to_folder('/1');
 });
 
+app.use(express.urlencoded({ extended: true })); // A must if you want to use post requests (api_url_post=yes)
+
 app.use('/', router);
 
 const port = 3000;
