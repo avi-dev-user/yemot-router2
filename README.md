@@ -98,6 +98,38 @@ let messages = [{ type: "text", data: "היי, תקיש 10" }];
 let messages = [{ type: "text", data: "היי, תקיש 10" }];
 ```
 
+--------
+⚠️ שימו לב! ⚠️
+לא ניתן להחזיר לימות את התוים:
+נקודה/מקף/גרש/גרשיים/התו &
+העברת אחד מהתוים הנ"ל יגרום לזריקת השגיאה `InputValidationError`.
+**כאשר מעבירים טקסט להקראה (`'type: 'text`) ניתן להגדיר "התעלמות שקטה" מתוים לא חוקיים**, כלומר שבמקום לזרוק שגיאה הם פשוט יוסרו מהתשובה שתוחזר לימות, באמצעות ההגדרה `silentRemoveInvalidChars`, אותה ניתן להגדיר בשתי רמות.
+
+<details>
+<summary>פרטים נוספים ודוגמאות</summary>
+
+- ברמת ההודעה המסוימת, ע"י העברת הפרמטר `silentRemoveInvalidChars` באובייקט ההודעה, לדוגמה:
+```js
+{
+    type: "text",
+    data: "טקסט. בעייתי.",
+    silentRemoveInvalidChars: true
+}
+```
+- ברמת כל ה`read`/`id_list_message`, ע"י העברת הפרמטר `silentRemoveInvalidChars` באובייקט האפשרויות.
+דוגמה לread:
+```js
+const resp = await call.read(messagesWidthInvalidChars, 'tap', { silentRemoveInvalidChars: true });
+```
+
+דוגמה לid_list_message:
+```js
+await call.id_list_message(messagesWidthInvalidChars, null, { silentRemoveInvalidChars: true });
+```
+</details>
+
+--------
+
 <div dir="rtl" text-align="right">
 השמעת קובץ במערכת:
 <div dir="ltr" text-align="left">
@@ -162,13 +194,12 @@ let messages = [{ type: "alpha", data: "abc@gmail.com" }];
 
 בפרמטר הזה, ניתן להעביר אפשרויות נוספות, כגון סך הקשות מינימלי, מקסימלי, וכו'.
 
-##### ערכי ברירת מחדל - הקשה
+##### ערכי ברירת מחדל - הקשה:
 
 <div dir="ltr" text-align="left">
 
 ```js
 let options = {
-
 	/* שם הערך בימות
 	 ברירת מחדל, נקבע אוטומטית,
 	 val_1, val_2 ... */
@@ -271,7 +302,7 @@ let options = {
 
 <div dir="rtl" text-align="right">
 
-##### ערכי ברירת מחדל - הקלטה
+##### ערכי ברירת מחדל - הקלטה:
 
 <div dir="ltr" text-align="left">
 
@@ -323,7 +354,7 @@ let options = {
 go_to_folder(`/${call.ApiExtension}`);
 ```
 
-### `id_list_message(messages: array, wait_to_more_action: Boolean)`
+### `id_list_message(messages: array, wait_to_more_action: Boolean, { silentRemoveInvalidChars: Boolean }?)`
 
 במתודה זו ניתן להשמיע למשתמש הודעה אחת, או מספר הודעות ברצף.
 
