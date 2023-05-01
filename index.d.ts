@@ -75,7 +75,7 @@ type read_options = {
 
 type idListMessageOptions = {
     removeInvalidChars?: boolean;
-    mergeToNext?: boolean;
+    prependToNextAction?: boolean;
 };
 
 type play_ok_mode = 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';

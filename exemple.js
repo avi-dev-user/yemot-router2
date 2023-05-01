@@ -44,7 +44,7 @@ router.get('/', async (call) => {
     console.log(r);
 
     messages = [{ type: 'text', data: 'אמרת' }];
-    r = await call.id_list_message(messages, { mergeToNext: true });
+    r = await call.id_list_message(messages, { prependToNextAction: true });
 
     console.log(r);
 
