@@ -21,7 +21,7 @@ npm i yemot-router2
  
 עם המתודות של האובייקט הזה, ניתן להשמיע/לבקש נתונים מהמחייג, להפנות אותו לשלוחה אחרת, ועוד.
 
-ראה דוגמה ב [exemple.js](exemple.js)
+ראה דוגמה ב [example.js](example.js)
 
 # **Changelog**
 <details>
@@ -64,7 +64,7 @@ npm i yemot-router2
 
 כעת בעת ניתוק, פשוט תיזרק שגיאה.
 
-ניתן לתפוס אותה להתנהגות מותאמת אישית (ראה דוגמה בקובץ `exemple.js/.`),
+ניתן לתפוס אותה להתנהגות מותאמת אישית (ראה דוגמה בקובץ `example.js/.`),
 
 או להתעלם, לעצירה של ריצת הפונקציה (ללא עצירה של התהליך כולו, כיוון שהשגיאה יותר גבוה - ע"י הספריה)
 
@@ -74,7 +74,7 @@ npm i yemot-router2
 
 <div dir="ltr" text-align="left">
 
-[./exemple.js](exemple.js)
+[./example.js](example.js)
 
 <div dir="rtl" text-align="right">
 
@@ -224,7 +224,7 @@ let options = {
 
 	/* צורת ההשמעה למשתמש את הקשותיו
 	באם מעוניינים במקלדת שונה ממקלדת ספרות, כגון EmailKeyboard או HebrewKeyboard, יש להכניס כאן את סוג המקלדת
-	[ראו exemple.js]
+	[ראו example.js]
 	האופציות הקיימות:
 	"Number" | "Digits" | "File" | "TTS" | "Alpha" | "No" | "HebrewKeyboard" |
 	"EmailKeyboard" | "EnglishKeyboard" | "DigitsKeyboard" | "TeudatZehut" |
