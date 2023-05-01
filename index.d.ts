@@ -22,6 +22,8 @@ export type Call = {
     routing_yemot(number: string): void;
 
     restart_ext(): void;
+
+    hangup(): void;
 };
 
 type Handler = (p: Call) => void;

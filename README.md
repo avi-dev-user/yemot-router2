@@ -344,11 +344,11 @@ let options = {
 
 </details>
 
-### `go_to_folder(folder: string)`
+### `go_to_folder(folder: string): void`
 
 מתודה להעברת השיחה לשלוחה מסוימת במערכת הנוכחית.
-ניתן לכתוב נתיב יחסי לשלוחה הנוכחית או לשלוחה הראשית. פירוט על האופציות ניתן לקרוא [כאן](https://f2.freeivr.co.il/post/58).
-ניתן להעביר בפרמטר folder את הסטרינג `hangup`, וכך לנתק את השיחה.
+ניתן לכתוב נתיב יחסי לשלוחה הנוכחית או לשלוחה הראשית, פירוט על האופציות הזמינות ניתן לקרוא [כאן](https://f2.freeivr.co.il/post/58).
+ניתן גם להעביר בפרמטר folder את הסטרינג `hangup`, וכך לנתק את השיחה, או להשתמש בקיצור `call.hangup()` (ראו מטה).
 
 ### `restart_ext()`
 
@@ -356,7 +356,14 @@ let options = {
 זהה לכתיבה הבאה:
 
 ```js
-go_to_folder(`/${call.ApiExtension}`);
+call.go_to_folder(`/${call.ApiExtension}`);
+```
+
+### `hangup(): void`
+
+מנתק את השיחה. קיצור לתחביר הבא:
+```
+call.go_to_folder('hangup');
 ```
 
 ### `id_list_message(messages: array, wait_to_more_action: Boolean, { removeInvalidChars: Boolean }?)`
