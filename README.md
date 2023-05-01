@@ -107,28 +107,29 @@ let messages = [{ type: "text", data: "היי, תקיש 10" }];
 לא ניתן להחזיר לימות את התוים:
 נקודה/מקף/גרש/גרשיים/התו &
 העברת אחד מהתוים הנ"ל יגרום לזריקת השגיאה `InputValidationError`.
-**כאשר מעבירים טקסט להקראה (`'type: 'text`) ניתן להגדיר "התעלמות שקטה" מתוים לא חוקיים**, כלומר שבמקום לזרוק שגיאה הם פשוט יוסרו מהתשובה שתוחזר לימות, באמצעות ההגדרה `silentRemoveInvalidChars`, אותה ניתן להגדיר בשתי רמות.
+**כאשר מעבירים טקסט להקראה (`'type: 'text`) ניתן להגדיר הסרה של תווים לא חוקיים**, כלומר שבמקום לזרוק שגיאה הם פשוט יוסרו מהתשובה שתוחזר לימות.
+ההגדרה היא `removeInvalidChars`, אותה ניתן להגדיר בשתי רמות, ברמת הודעה בודדת, או ברמת כל ה`read`/`id_list_message`.
 
 <details>
 <summary>פרטים נוספים ודוגמאות</summary>
 
-- ברמת ההודעה המסוימת, ע"י העברת הפרמטר `silentRemoveInvalidChars` באובייקט ההודעה, לדוגמה:
+- ברמת ההודעה המסוימת, ע"י העברת הפרמטר `removeInvalidChars` באובייקט ההודעה, לדוגמה:
 ```js
 {
     type: "text",
     data: "טקסט. בעייתי.",
-    silentRemoveInvalidChars: true
+    removeInvalidChars: true
 }
 ```
-- ברמת כל ה`read`/`id_list_message`, ע"י העברת הפרמטר `silentRemoveInvalidChars` באובייקט האפשרויות.
+- ברמת כל ה`read`/`id_list_message`, ע"י העברת הפרמטר `removeInvalidChars` באובייקט האפשרויות.
 דוגמה לread:
 ```js
-const resp = await call.read(messagesWidthInvalidChars, 'tap', { silentRemoveInvalidChars: true });
+const resp = await call.read(messagesWidthInvalidChars, 'tap', { removeInvalidChars: true });
 ```
 
 דוגמה לid_list_message:
 ```js
-await call.id_list_message(messagesWidthInvalidChars, null, { silentRemoveInvalidChars: true });
+await call.id_list_message(messagesWidthInvalidChars, false, { removeInvalidChars: true });
 ```
 </details>
 
@@ -358,7 +359,7 @@ let options = {
 go_to_folder(`/${call.ApiExtension}`);
 ```
 
-### `id_list_message(messages: array, wait_to_more_action: Boolean, { silentRemoveInvalidChars: Boolean }?)`
+### `id_list_message(messages: array, wait_to_more_action: Boolean, { removeInvalidChars: Boolean }?)`
 
 במתודה זו ניתן להשמיע למשתמש הודעה אחת, או מספר הודעות ברצף.
 

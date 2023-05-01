@@ -19,14 +19,14 @@ export type Call = {
 
     id_list_message(data: [msg_data], wait_to_more_action: boolean, options?: id_list_message_options): void;
 
-    routing_yemot(phone: string): void;
+    routing_yemot(number: string): void;
 
     restart_ext(): void;
 };
 
 type Handler = (p: Call) => void;
 
-type msg_data = [{ type: msg_data_type; data: string, silentRemoveInvalidChars?: boolean }];
+type msg_data = [{ type: msg_data_type; data: string, removeInvalidChars?: boolean }];
 
 type msg_data_type = 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH';
 
@@ -48,7 +48,7 @@ type read_options = {
     read_none_var: string;
     block_change_type_lang: boolean;
     
-    silentRemoveInvalidChars: boolean;
+    removeInvalidChars?: boolean;
 
     lang: string;
     allow_typing?: boolean;
@@ -65,7 +65,7 @@ type read_options = {
 };
 
 type id_list_message_options = {
-    silentRemoveInvalidChars?: boolean;
+    removeInvalidChars?: boolean;
 };
 
 type play_ok_mode = 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';
