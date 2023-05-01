@@ -51,26 +51,26 @@ type read_options = {
     block_asterisk: boolean;
     block_zero: boolean;
     replace_char: string;
-    digits_allowed: (number | string)[];
-    amount_attempts: number;
-    read_none: boolean;
-    read_none_var: string;
-    block_change_type_lang: boolean;
+    digits_allowed?: (number | string)[];
+    amount_attempts?: number;
+    allow_none?: boolean;
+    none_val?: string;
+    block_change_keyboard?: boolean;
     
     removeInvalidChars?: boolean;
 
-    lang: string;
-    allow_typing?: boolean;
+    lang?: string;
+    block_typing?: boolean;
     max_digits?: number;
-    use_records_engine?: boolean;
+    use_records_recognition_engine?: boolean;
     quiet_max?: number;
     length_max?: number;
 
-    path: string;
-    file_name: string;
-    record_ok: boolean;
-    record_hangup?: boolean;
-    record_attach?: boolean;
+    path?: string;
+    file_name?: string;
+    no_save_menu?: boolean;
+    save_on_hangup?: boolean;
+    append_to_existing_file?: boolean;
 };
 
 type idListMessageOptions = {
