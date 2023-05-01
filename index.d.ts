@@ -47,7 +47,7 @@ type read_options = {
     max: number;
     min: number;
     sec_wait: number;
-    play_ok_mode: play_ok_mode;
+    typing_playback_mode: typing_playback_mode;
     block_asterisk: boolean;
     block_zero: boolean;
     replace_char: string;
@@ -78,7 +78,7 @@ type idListMessageOptions = {
     prependToNextAction?: boolean;
 };
 
-type play_ok_mode = 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';
+type typing_playback_mode = 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';
 
 export const errors = {
     ExitError,

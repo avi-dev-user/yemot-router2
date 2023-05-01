@@ -22,7 +22,7 @@ router.get('/', async (call) => {
         });
 
     messages = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
-    r = await call.read(messages, 'tap', { play_ok_mode: 'HebrewKeyboard' })
+    r = await call.read(messages, 'tap', { typing_playback_mode: 'HebrewKeyboard' })
         .catch(error => {
             if (error.name === 'HangupError') { console.log(error.call.phone, 'hangup'); }
             throw error;
