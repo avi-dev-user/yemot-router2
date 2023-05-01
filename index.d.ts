@@ -5,6 +5,7 @@ interface YemotRouter {
     post: (path: string, handler: Handler) => void;
     all: (path: string, handler: Handler) => void;
 }
+
 export type Call = {
     did: string;
     phone: string;
@@ -13,11 +14,11 @@ export type Call = {
     extension: string;
     query: object;
 
-    read(messages: [msg_data], mode?: mode, options?: read_options): Promise<String | false>;
+    read(messages: Msg[], mode?: ReadMode, options?: read_options): Promise<String | false>;
 
     go_to_folder(folder: string): void;
 
-    id_list_message(data: [msg_data], wait_to_more_action: boolean, options?: id_list_message_options): void;
+    id_list_message(data: Msg[], options?: idListMessageOptions): void;
 
     routing_yemot(number: string): void;
 
@@ -28,11 +29,17 @@ export type Call = {
 
 type Handler = (p: Call) => void;
 
-type msg_data = [{ type: msg_data_type; data: string, removeInvalidChars?: boolean }];
+type Msg = {
+    type: 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH'
+    data: string | {
+        time?: string
+        zone?: string
+        difference?: string
+    },
+    removeInvalidChars?: boolean
+}
 
-type msg_data_type = 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH';
-
-type mode = 'tap' | 'stt' | 'record';
+type ReadMode = 'tap' | 'stt' | 'record';
 
 type read_options = {
     val_name: string;
@@ -66,8 +73,9 @@ type read_options = {
     record_attach?: boolean;
 };
 
-type id_list_message_options = {
+type idListMessageOptions = {
     removeInvalidChars?: boolean;
+    mergeToNext?: boolean;
 };
 
 type play_ok_mode = 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';
@@ -87,6 +95,7 @@ class ExitError extends Error {
         this.date = new Date();
     }
 }
+
 class HangupError extends ExitError {
     constructor(...params) {
         this.name = 'HangupError';

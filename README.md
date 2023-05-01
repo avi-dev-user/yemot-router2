@@ -366,15 +366,16 @@ call.go_to_folder(`/${call.ApiExtension}`);
 call.go_to_folder('hangup');
 ```
 
-### `id_list_message(messages: array, wait_to_more_action: Boolean, { removeInvalidChars: Boolean }?)`
+### `id_list_message(messages: Msg[], options?: idListMessageOptions): void`
 
 במתודה זו ניתן להשמיע למשתמש הודעה אחת, או מספר הודעות ברצף.
 
 ---
 
 <div style="border: 1.5px solid; color: #ff6037" dir="rtl">
-באם מעוניינים לשרשר פעולה נוספת, לדוגמה להשמיע הודעה ואז לבצע <code>read</code> (קבלת נתונים נוספים), יש להעביר לארגומנט השני <code>true</code>.
-באם אחרי השמעת ההודעה מעוניינים שהמאזין ייצא מהשלוחה, ניתן להשאיר את הפרמטר השני ריק.
+לאחר השמעת ההודעה/הודעות, השיחה תצא אוטומטית מהשלוחה!
+
+באם מעוניינים לשרשר פעולה נוספת לאחר ההשמעה, לדוגמה להשמיע הודעה ואז לבצע <code>read</code> (קבלת נתונים נוספים), יש להגדיר בארגומנט הoptions את `mergeToNext` ל`true`.
 </div>
 
 ---
