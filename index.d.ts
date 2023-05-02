@@ -1,87 +1,82 @@
-export declare function YemotRouter(options?: { timeout: number, printLog: boolean, uncaughtErrorsHandler: function }): YemotRouter;
+export declare function YemotRouter(options?: { timeout: Number; printLog: Boolean; uncaughtErrorsHandler: function }): YemotRouter;
 
+type CallHandler = (p: Call) => void;
 interface YemotRouter {
-    get: (path: string, handler: Handler) => void;
-    post: (path: string, handler: Handler) => void;
-    all: (path: string, handler: Handler) => void;
+    get: (path: String, handler: CallHandler) => void;
+    post: (path: String, handler: CallHandler) => void;
+    all: (path: String, handler: CallHandler) => void;
 }
 
 export type Call = {
-    did: string;
-    phone: string;
-    real_did: string;
-    callId: string;
-    extension: string;
-    query: object;
+    did: String;
+    phone: String;
+    real_did: String;
+    callId: String;
+    extension: String;
 
-    read(messages: Msg[], mode?: ReadMode, options?: read_options): Promise<String | false>;
-
-    go_to_folder(folder: string): void;
-
-    id_list_message(data: Msg[], options?: idListMessageOptions): void;
-
-    routing_yemot(number: string): void;
-
+    read(messages: Msg[], mode?: 'tap' | 'stt' | 'record', options?: TapOps | RecordOps | SstOps): Promise<String | false>;
+    go_to_folder(path: String): void;
+    id_list_message(messages: Msg[], options?: idListMessageOptions): void;
+    routing_yemot(Number: String): void;
     restart_ext(): void;
-
     hangup(): void;
 };
 
-type Handler = (p: Call) => void;
-
 type Msg = {
-    type: 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH'
-    data: string | {
-        time?: string
-        zone?: string
-        difference?: string
-    },
-    removeInvalidChars?: boolean
+    type: 'file' | 'text' | 'speech' | 'digits' | 'Number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH';
+    data:
+        | String | Number
+        | {
+              time?: String;
+              zone?: String;
+              difference?: String;
+          };
+    removeInvalidChars?: Boolean;
+};
+
+type GeneralOps = {
+    val_name?: String;
+    re_enter_if_exists?: Boolean;
+    removeInvalidChars?: Boolean;
 }
 
-type ReadMode = 'tap' | 'stt' | 'record';
+type TapOps = GeneralTapOps & {
+    max_digits?: Number;
+    min_digits?: Number;
+    sec_wait?: Number;
+    typing_playback_mode?: 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';
+    block_asterisk_key?: Boolean;
+    block_zero_key?: Boolean;
+    replace_char?: String;
+    digits_allowed?: Array<Number | String>;
+    amount_attempts?: Number;
+    allow_none?: Boolean;
+    none_val: String;
+    block_change_type_lang: Boolean;
+};
 
-type read_options = {
-    val_name: string;
-    re_enter_if_exists: boolean;
-    max: number;
-    min: number;
-    sec_wait: number;
-    typing_playback_mode: typing_playback_mode;
-    block_asterisk: boolean;
-    block_zero: boolean;
-    replace_char: string;
-    digits_allowed?: (number | string)[];
-    amount_attempts?: number;
-    allow_none?: boolean;
-    none_val?: string;
-    block_change_keyboard?: boolean;
-    
-    removeInvalidChars?: boolean;
+type SstOps = GeneralTapOps & {
+    lang: String;
+    block_typing?: Boolean;
+    max_digits?: Number;
+    use_records_recognition_engine?: Boolean;
+    quiet_max?: Number;
+    length_max?: Number;
+};
 
-    lang?: string;
-    block_typing?: boolean;
-    max_digits?: number;
-    use_records_recognition_engine?: boolean;
-    quiet_max?: number;
-    length_max?: number;
-
-    path?: string;
-    file_name?: string;
-    no_save_menu?: boolean;
-    save_on_hangup?: boolean;
-    append_to_existing_file?: boolean;
+type RecordOps = GeneralTapOps & {
+    path: String;
+    file_name: String;
+    no_save_menu: Boolean;
+    save_on_hangup: Boolean;
+    append_to_existing_file: Boolean;
+    length_min?: Number;
+    length_max?: Number;
 };
 
 type idListMessageOptions = {
-    removeInvalidChars?: boolean;
-    prependToNextAction?: boolean;
-};
-
-type typing_playback_mode = 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';
-
-export const errors = {
-    ExitError,
+    removeInvalidChars?: Boolean;
+    prependToNextAction?: Boolean;
 };
 
 class ExitError extends Error {
@@ -107,3 +102,16 @@ class TimeoutError extends ExitError {
         this.name = 'TimeoutError';
     }
 }
+
+class InputValidationError extends Error {
+    constructor(...params) {
+        this.name = 'InputValidationError';
+    }
+}
+
+export const errors = {
+    ExitError,
+    HangupError,
+    TimeoutError,
+    InputValidationError
+};
