@@ -434,6 +434,18 @@ call.go_to_folder('hangup');
 }
 ```
 
+והטייפ **music_on_hold**:
+
+שבו הערך data יהיה אובייקט במבנה הבא -
+  
+  ```js
+  {
+    musicName: String,
+    maxSec? Number // optional
+  }
+  ```
+
+
 #### הערך `time`:
 
 סוג הזמן שרוצים להשמיע.
