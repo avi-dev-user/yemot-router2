@@ -21,7 +21,7 @@ router.get('/', async (call) => {
 
     const nameMessages = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
     const name = await call.read(nameMessages, 'tap', { typing_playback_mode: 'HebrewKeyboard' });
-    console.log(name);
+    console.log('name:', name);
 
     const addressFilePath = await call.read(
         [
@@ -30,16 +30,16 @@ router.get('/', async (call) => {
         ], 'record',
         { removeInvalidChars: true }
     );
-    console.log(addressFilePath);
+    console.log('address file path:', addressFilePath);
 
-    // קטע זה משתמש בזיהוי דיבור ודורש יחידות במערכת
+    // 💰 קטע זה משתמש בזיהוי דיבור ודורש יחידות במערכת 💰
     const text = await call.read([{ type: 'text', data: 'אנא אמור בקצרה את ההודעה שברצונך להשאיר' }], 'stt');
-    console.log(text);
+    console.log('user message:', text);
 
     // לאחר השמעת ההודעה יוצא אוטומטית מהשלוחה
     // לשרשור פעולות לאחר השמעת ההודעה יש להגדיר prependToNextAction: true, ראה בREADME
     return call.id_list_message([{
-        type: 'system_messages',
+        type: 'system_message',
         data: 'M1399' // תגובתך התקבלה בהצלחה
     }]);
 });
