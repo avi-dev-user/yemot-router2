@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { YemotRouter, HangupError } = require('./index');
+const { YemotRouter } = require('./index');
 
 const router = YemotRouter({
     printLog: true,
@@ -12,50 +12,44 @@ const router = YemotRouter({
 });
 
 router.get('/', async (call) => {
-    let messages = [{ type: 'text', data: 'היי, תקיש 10' }];
-    let r = await call.read(messages)
-        .catch(error => {
-            if (error instanceof HangupError) {
-                // do something with the event, and then throw the error again for stop the run
-            }
-            throw error; // throw the error again if it's not a HangupError
-        });
+    // לא ניתן להתקדם ללא הקשת 10 וסולמית
+    await call.read([{ type: 'text', data: 'היי, תקיש 10' }], 'tap', {
+        max_digits: 2,
+        min_digits: 2,
+        digits_allowed: ['10']
+    });
 
-    messages = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
-    r = await call.read(messages, 'tap', { typing_playback_mode: 'HebrewKeyboard' })
-        .catch(error => {
-            if (error.name === 'HangupError') { console.log(error.call.phone, 'hangup'); }
-            throw error;
-        });
+    const nameMessages = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
+    const name = await call.read(nameMessages, 'tap', { typing_playback_mode: 'HebrewKeyboard' });
+    console.log(name);
 
-    console.log(r);
+    const addressFilePath = await call.read(
+        [
+            { type: 'text', data: 'שלום ' + name },
+            { type: 'text', data: 'אנא הקלט את הרחוב בו אתה גר' }
+        ], 'record',
+        { removeInvalidChars: true }
+    );
+    console.log(addressFilePath);
 
-    messages = [
-        { type: 'text', data: 'שלום ' + r },
-        { type: 'text', data: 'אנא הקלט את הרחוב בו אתה גר' }
-    ];
-    r = await call.read(messages, 'record');
+    // קטע זה משתמש בזיהוי דיבור ודורש יחידות במערכת
+    const text = await call.read([{ type: 'text', data: 'אנא אמור בקצרה את ההודעה שברצונך להשאיר' }], 'stt');
+    console.log(text);
 
-    console.log(r);
-
-    messages = [{ type: 'text', data: 'אנא אמור את שם הרחוב בו אתה גר' }];
-    r = await call.read(messages, 'stt');
-
-    console.log(r);
-
-    messages = [{ type: 'text', data: 'אמרת' }];
-    r = await call.id_list_message(messages, { prependToNextAction: true });
-
-    console.log(r);
-
-    call.go_to_folder('/1');
+    // לאחר השמעת ההודעה יוצא אוטומטית מהשלוחה
+    // לשרשור פעולות לאחר השמעת ההודעה יש להגדיר prependToNextAction: true, ראה בREADME
+    return call.id_list_message([{
+        type: 'system_messages',
+        data: 'M1399' // תגובתך התקבלה בהצלחה
+    }]);
 });
 
-app.use(express.urlencoded({ extended: true })); // A must if you want to use post requests (api_url_post=yes)
+// this must if you want to use post requests (api_url_post=yes)
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', router);
 
 const port = 3000;
 app.listen(port, () => {
-    console.log('listen in port', port);
+    console.log(`example yemot-router2 runing on port ${port}`);
 });
