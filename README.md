@@ -54,6 +54,9 @@ npm i yemot-router2
 **5.1.2**
 תוקנה התמיכה בבקשות POST (ההגדרה api_url_post=yes בשלוחה), שבהן הפרמטרים נשלחים בbody ולא בquery
 נוסף פרוקסי שמיירט נסיון גישה לreq.query בבקשות POST או לreq.body בבקשות GET, ומציג הסבר מפורט לתיקון.
+
+**5.1.3**
+תוקנה האופציה timeout באתחול הראוטר.
 </details>
 
 <details>
