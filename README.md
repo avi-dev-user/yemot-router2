@@ -298,7 +298,7 @@ const options = {
 };
 ```
 
-## `go_to_folder(path)`
+## `go_to_folder(target)`
 
 מתודה להעברת השיחה לשלוחה מסוימת במערכת הנוכחית.
 

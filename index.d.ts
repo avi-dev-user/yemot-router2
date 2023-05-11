@@ -15,9 +15,9 @@ export type Call = {
     extension: String;
 
     read(messages: Msg[], mode?: 'tap' | 'stt' | 'record', options?: TapOps | RecordOps | SstOps): Promise<String | false>;
-    go_to_folder(path: String): void;
+    go_to_folder(target: String): void;
     id_list_message(messages: Msg[], options?: idListMessageOptions): void;
-    routing_yemot(Number: String): void;
+    routing_yemot(number: String): void;
     restart_ext(): void;
     hangup(): void;
 };
