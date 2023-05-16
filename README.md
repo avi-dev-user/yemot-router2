@@ -25,7 +25,7 @@ npm i yemot-router2
 
 # **Changelog**
 <details>
-<summary>5.0.0 - 5.1.2</summary>
+<summary>5.0.0 - 5.1.4</summary>
 
 **5.0.0**
 גרסה 5 כוללת שינויים רבים, כולל שינויים שוברים, ושכתוב משמעותי של הAPI הפנימי.
@@ -57,6 +57,9 @@ npm i yemot-router2
 
 **5.1.3**
 תוקנה האופציה timeout באתחול הראוטר.
+
+**5.1.4**
+תוקן באג בid_list_message ללא שרשור לפעולה
 </details>
 
 <details>
