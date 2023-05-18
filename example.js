@@ -4,7 +4,7 @@ const { YemotRouter } = require('./index');
 
 const router = YemotRouter({
     printLog: true,
-    uncaughtErrorsHandler: (error, call) => {
+    uncaughtErrorHandler: (error, call) => {
         console.log(`Uncaught error in ${call.req.path} from ${call.phone}. error stack: ${error.stack}`);
         // do something with the error - like send email to developer, print details log, etc.
         return call.id_list_message([{ type: 'text', data: 'אירעה שגיאה' }]); // play nice error message to the caller

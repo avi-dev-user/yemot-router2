@@ -1,4 +1,4 @@
-export declare function YemotRouter(options?: { timeout: Number; printLog: Boolean; uncaughtErrorsHandler: function }): YemotRouter;
+export declare function YemotRouter(options?: { timeout: Number; printLog: Boolean; uncaughtErrorHandler: function }): YemotRouter;
 
 type CallHandler = (p: Call) => void;
 interface YemotRouter {
