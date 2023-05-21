@@ -26,7 +26,8 @@ export type Call = {
 type Msg = {
     type: 'file' | 'text' | 'speech' | 'digits' | 'Number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH';
     data:
-        | String | Number
+        | String
+        | Number
         | {
               time?: String;
               zone?: String;
@@ -105,8 +106,10 @@ class TimeoutError extends ExitError {
 }
 
 class InputValidationError extends Error {
-    constructor(...params) {
+    constructor(message, ...params) {
         this.name = 'InputValidationError';
+        this.message = message;
+        this.isInputValidationError = true;
     }
 }
 
@@ -114,5 +117,5 @@ export const errors = {
     ExitError,
     HangupError,
     TimeoutError,
-    InputValidationError
+    InputValidationError,
 };
