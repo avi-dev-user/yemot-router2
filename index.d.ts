@@ -6,6 +6,16 @@ interface YemotRouter {
     post: (path: String, handler: CallHandler) => void;
     all: (path: String, handler: CallHandler) => void;
     deleteCallL: (callId: String) => void;
+    defaults: {
+        printLog?: Boolean;
+        read?: {
+            timeout?: Number;
+            tap?: TapOps;
+            stt?: SstOps;
+            record?: RecordOps;
+        };
+        id_list_message?: idListMessageOptions;
+    }
 }
 
 export type Call = {
