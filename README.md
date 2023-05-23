@@ -5,7 +5,8 @@
 מטרת הספריה לאפשר תקשורת מול המערכת הטלפונית בצורה נקיה וקריאה:
 - הרצה רציפה של הקוד מתחילה ועד סוף, תוך שמירת הstate של השיחה בין הקריאות, בצורה שקופה לחלוטין
 - יצירת התשובות על ידי קריאה למתודות של השיחה במקום יצירה ידנית של הסטרינגים
-- אפשרויות נוחות נוספות כגון מטפל בשגיאות, הסרה של תווים לא חוקיים, לוג אוטומטי מפורט (אופציונלי) ועוד
+- אפשרויות נוחות נוספות כגון מטפל בשגיאות, הסרה של תווים לא חוקיים, לוג אוטומטי מפורט (אופציונלי)
+- ועוד אפשרויות רבות! פירוט בתיעוד 👇
 
 # התקנה
 
@@ -414,6 +415,78 @@ const messages = [{
 ```
 
 [כאן](https://f2.freeivr.co.il/topic/44/%D7%9E%D7%95%D7%96%D7%99%D7%A7%D7%94-%D7%91%D7%94%D7%9E%D7%AA%D7%A0%D7%94) סוגי מוזיקה זמינים והוראות ליצירת חדשה.
+
+# ברירות מחדל
+
+-------------
+**שימו לב:**
+
+אפשרות זו זמינה בגרסה 6.0 ומעלה
+
+אפשרות זו הינה אופציונלית לחלוטין, ניתן להמשיך להעביר אובייקט אפשרויות בכל read/id_list_message כמו קודם
+
+-------------
+
+ניתן להגדיר ברירות מחדל בדרכים הבאות:
+- ברירות מחדל של המערכת - שהן כמו ברירות המחדל של ימות ([defaults.js](lib/defaults.js))
+- רמת ראוטר
+- רמת שיחה
+- ספציפית לקריאת `read`/`id_list_message` מסויימת
+
+האפשרויות ימוזגו עם סדר קדימויות. הסדר הוא:
+ברירות המחדל של הספרייה שנמצאת ב- [lib/defaults.js](lib/defaults.js),
+ברמת מופע ראוטר,
+ברמת מופע שיחה,
+ברמת קריאה ספציפית.
+
+כל אפשרות מקבלת קדימות ודורסת את זו שלפניה.
+
+דוגמה:
+
+```js
+const router = YemotRouter({
+    printLog: true,
+    defaults: {
+        read: {
+            timeout: 30000
+        }
+    }
+});
+
+// אפשר גם כך:
+// router.defaults.read.timeout = 30000;
+
+router.get('/', async (call) => {
+    // הtimeout יהיה 30 שניות
+    await call.read([{ type: 'text', data: 'היי, תקיש 1' }], 'tap', {
+        max_digits: 1,
+        digits_allowed: [1]
+    });
+
+    // הtimeout יהיה 40 שניות
+    call.defaults.read.timeout = 40000;
+    await call.read([{ type: 'text', data: 'היי, תקיש 1' }], 'tap', {
+        max_digits: 1,
+        digits_allowed: [1]
+    });
+
+    // הtimeout יהיה 60 שניות
+    await call.read([{ type: 'text', data: 'היי, תקיש 1' }], 'tap', {
+        max_digits: 1,
+        digits_allowed: [1],
+        timeout: 60000
+    });
+});
+```
+
+בדוגמה מאתחלים את הראוטר עם הגדרה של timeout של 1000 שניות,
+לאחר מכן בתוך השיחה משנים אותו ל2000,
+ולאחר מכן מבצעים קריאה בודדת עם אובייקט אופציות עם timeout של 3000, והוא גובר על ההגדרות הקודמות שהיו ברמה יותר גבוהה.
+
+**שימו לב!** ניתן להגדיר את האופציות הבאות ברמת קריאה בודדת בלבד ולא ברמת שיחה/ראוטר:
+
+- `val_name` (read)
+- `prependToNextAction` (id_list_message)
 
 # נספח: מקרי קצה - למנוסים בשימוש בספריה
 
