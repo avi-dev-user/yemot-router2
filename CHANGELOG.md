@@ -50,6 +50,7 @@ play_ok_mode:| read_none:| read_none_var:| block_change_type_lang:| min:| max:| 
 - נוספה תמיכה להגדרות חסרות באפשרות זיהוי דיבור (stt)
 - נוספה מתודת `call.hangup()` (קיצור ל `call.go_to_folder('hangup')`)
 - ניתן להעביר לאתחול הראוטר אופציות עבור אקספרס ראוטר עצמו - ראה [פירוט בתיעוד express.js](https://expressjs.com/en/api.html#express.router) על האופציות הזמינות.
+- תמיכה בכל הפורמטים הקבילים של [ספריית ms](https://npmjs.com/ms) בהגדרת timeout
 
 ### תיקוני באגים ושיפורים
 
