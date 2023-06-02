@@ -115,17 +115,8 @@ class TimeoutError extends ExitError {
     }
 }
 
-class InputValidationError extends Error {
-    constructor(message, ...params) {
-        this.name = 'InputValidationError';
-        this.message = message;
-        this.isInputValidationError = true;
-    }
-}
-
 export const errors = {
     ExitError,
     HangupError,
-    TimeoutError,
-    InputValidationError,
+    TimeoutError
 };
