@@ -179,10 +179,10 @@ const options = {
     append_to_existing_file: false,
 
     /* כמות שניות מינימלית להקלטה, ברירת מחדל אין מינימום */
-    length_min: '',
+    min_length: '',
 
     /* כמות שניות מקסימלית להקלטה, ברירת מחדל ללא הגבלה */
-    length_max: ''
+    max_length: ''
 };
 ```
 

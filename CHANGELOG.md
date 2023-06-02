@@ -12,10 +12,10 @@
 ### שינויים שוברים
 
 - ‫הוסרו המשתנים `call.query` ו-`call.body`, במקומם נוסף המשתנה `call.values` שמכיל את הquery/body בהתאמה, לפי שיטת הפניה מימות - GET או POST.
-- הוסרה האפשרות להוסיף פונקציית שיחה ע"י `add_fn`, שסומנה כמיושנת בגרסה 5.0.0, ניתן להשתמש במקום ב`get`/`post`/`all`, כמו באקספרס רגיל.
+- הוסרה האפשרות להוסיף פונקציית שיחה ע"י `add_fn` שסומנה כמיושנת בגרסה 5.0.0 ניתן להשתמש במקום ב`get`/`post`/`all`, כמו באקספרס רגיל.
 - הוסר המשתנה `call.params`, ניתן להשתמש ב`call.req.params` במקום.
 - האפשרות `uncaughtErrorsHandler` שונתה לכתיב הנכון - `uncaughtErrorHandler` (בלי ה-s).
-- הפרמטר הבוליאני של `id_list_message` שהגדיר האם לחבר את ההודעות לפעולה הבאה לצורך שרשור פעולות, **הוסר**, ובמקומו יש להעביר אובייקט, עם `prependToNextAction: true`. פרטים נוספים [בתיעוד](#id_list_messagemessages-options).
+- הפרמטר הבוליאני של `id_list_message` שהגדיר האם לחבר את ההודעות לפעולה הבאה לצורך שרשור פעולות **הוסר**, ובמקומו יש להעביר אובייקט, עם `prependToNextAction: true`, פרטים נוספים [בתיעוד](#id_list_messagemessages-options).
 - ההגדרות בכתיב השגוי `lenght_max` ו-`lenght_max` שהוצאו משימוש בגרסה 5.0.0, הוסרו סופית ולא יעבדו יותר.
 - הסרת סוג השגיאה `InputValidationError` (בעת הצורך ייזרק `Error` רגיל).
 - שמות של אופציות רבות בread שלא היו מספיק ברורות שונו, וב2 מהן אף שונתה ברירת המחדל כדי להתאים לברירת המחדל של ימות המשיח.
@@ -37,13 +37,16 @@
 | `record_ok`              | `no_save_menu`                   | 🎙️ הקלטה       | ברירת מחדל **משמיע** תפריט אישור, הפוך מההגדרה הישנה |
 | `record_hangup`          | `save_on_hangup`                 | 🎙️ הקלטה       |                                                      |
 | `record_attach`          | `append_to_existing_file`        | 🎙️ הקלטה       |                                                      |
+| `length_min`            | `length_min`              | 🎙️ הקלטה       |                                                      |
+| `length_max`            | `max_length`              | 🎙️ הקלטה       |                                                      |
 | `allow_typing`           | `block_typing`                   | 🗣️ זיהוי דיבור | ברירת מחדל **מאפשר** הקשות, הפוך מההגדרה הישנה       |
 | `use_records_engine`     | `use_records_recognition_engine` | 🗣️ זיהוי דיבור |                                                      |
+| `length_max`            | `max_length`                     | 🗣️ זיהוי דיבור |                                                      |
 
 טיפ - ניתן להשתמש בביטוי הרגולרי הבא כדי לבצע חיפוש בכל הפרויקט בתוכנת VSCode, וכך למצוא בקלות הגדרות בשמות הישנים הדורשים טיפול:
 
 ```text
-play_ok_mode:| read_none:| read_none_var:| block_change_type_lang:| min:| max:| block_zero:| block_asterisk
+play_ok_mode:| read_none:| read_none_var:| block_change_type_lang:| min:| max:| block_zero:| block_asterisk:| length_min:| length_max:
 ```
 
 ### תכונות חדשות
@@ -75,7 +78,7 @@ play_ok_mode:| read_none:| read_none_var:| block_change_type_lang:| min:| max:| 
 
 - ניתן להשתמש במתודות get/post/all כמו באקספרס רגיל. כרגע מתודת `add_fn` נשמרת לצורך תאימות, אבל מומלץ לעדכן (עדכון: הוסר בגרסה 6).
 
-- ‫`lenght_min` בread מסוג הקלטה תוקן ל`length_min`, כנ"ל `lenght_max` תוקן ל`length_max`. כרגע הכתיב השגוי עדיין נתמך, אבל יוסר בהמשך (הוסר סופית בגרסה 6.0.0).
+- ‫`lenght_min` בread מסוג הקלטה תוקן ל`length_min`, כנ"ל `lenght_max` תוקן ל`length_max`. כרגע הכתיב השגוי עדיין נתמך, אבל יוסר בהמשך (שונה ל`min_length`/`max_length` בגרסה 6).
 
 - שליטה באתחול הראוטר האם יודפסו לוגים פנימיים של הספריה (ברירת מחדל לא - בשונה מבגרסאות הקודמות)
 

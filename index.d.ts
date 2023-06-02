@@ -82,8 +82,8 @@ type RecordOps = GeneralTapOps & {
     no_save_menu: Boolean;
     save_on_hangup: Boolean;
     append_to_existing_file: Boolean;
-    length_min?: Number;
-    length_max?: Number;
+    min_length?: Number;
+    max_length?: Number;
 };
 
 type idListMessageOptions = {
