@@ -50,7 +50,7 @@ type GeneralOps = {
     val_name?: String;
     re_enter_if_exists?: Boolean;
     removeInvalidChars?: Boolean;
-}
+};
 
 type TapOps = GeneralTapOps & {
     max_digits?: Number;
@@ -91,28 +91,25 @@ type idListMessageOptions = {
     prependToNextAction?: Boolean;
 };
 
-class ExitError extends Error {
-    constructor(call, ...params) {
-        // Pass remaining arguments (including vendor specific ones) to parent constructor
-        super(...params);
-
-        this.call = new Call();
-
-        this.name = 'ExitError';
-        this.date = new Date();
+class CallError extends Error {
+    name: String;
+    message: String;
+    callerFile: String;
+    call: Call;
+    date: Date;
+    isYemotRouterError: Boolean;
+    constructor ({ message, call }) {
     }
 }
 
-class HangupError extends ExitError {
-    constructor(...params) {
-        this.name = 'HangupError';
-    }
+class ExitError extends CallError {
+    constructor(call: Call, context: Object) {}
 }
 
-class TimeoutError extends ExitError {
-    constructor(...params) {
-        this.name = 'TimeoutError';
-    }
+class HangupError extends CallError { }
+
+class TimeoutError extends CallError {
+    constructor(call: Call) { }
 }
 
 export const errors = {
