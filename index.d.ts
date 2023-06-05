@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 export declare function YemotRouter(options?: { timeout: Number; printLog: Boolean; uncaughtErrorHandler: function }): YemotRouter;
 
 type CallHandler = (p: Call) => void;
@@ -6,6 +7,7 @@ interface YemotRouter {
     post: (path: String, handler: CallHandler) => void;
     all: (path: String, handler: CallHandler) => void;
     deleteCallL: (callId: String) => void;
+    events: EventEmitter;
     defaults: {
         printLog?: Boolean;
         read?: {

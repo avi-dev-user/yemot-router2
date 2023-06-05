@@ -11,6 +11,18 @@ const router = YemotRouter({
     }
 });
 
+router.events.on('call_hangup', (call) => {
+    console.log(`[example.js] call ${call.callId} was hangup`);
+});
+
+router.events.on('call_continue', (call) => {
+    console.log(`[example.js] call ${call.callId} was continue`);
+});
+
+router.events.on('new_call', (call) => {
+    console.log(`[example.js] new call ${call.callId} from ${call.phone}`);
+});
+
 router.get('/', async (call) => {
     // לא ניתן להתקדם ללא הקשת 10 וסולמית
     await call.read([{ type: 'text', data: 'היי, תקיש 10' }], 'tap', {
