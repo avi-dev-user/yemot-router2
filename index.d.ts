@@ -98,7 +98,7 @@ class CallError extends Error {
     call: Call;
     date: Date;
     isYemotRouterError: Boolean;
-    constructor ({ message, call }) {
+    constructor ({ message, call = null }) {
     }
 }
 
