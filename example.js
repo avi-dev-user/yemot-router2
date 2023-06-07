@@ -62,6 +62,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
 
 const port = 3000;
-app.listen(port, () => {
-    console.log(`example yemot-router2 runing on port ${port}`);
-});
+if (module === require.main) {
+    app.listen(port, () => {
+        console.log(`example yemot-router2 running on port ${port}`);
+    });
+}
+
+module.exports = { app, router };
