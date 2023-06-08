@@ -27,8 +27,8 @@
 | שם ההגדרה הישן           | שם ההגדרה החדש                   | סוג           | הערות                                                |
 | ------------------------ | -------------------------------- | ------------- | ---------------------------------------------------- |
 | `play_ok_mode`           | `typing_playback_mode`           | *️⃣ הקשות       |                                                      |
-| `read_none`              | `allow_none`                     | *️⃣ הקשות       |                                                      |
-| `read_none_var`          | `none_val`                       | *️⃣ הקשות       |                                                      |
+| `read_none`              | `allow_empty`                     | *️⃣ הקשות       |                                                      |
+| `read_none_var`          | `empty_val`                       | *️⃣ הקשות       |                                                      |
 | `block_change_type_lang` | `block_change_keyboard`          | *️⃣ הקשות       |                                                      |
 | `min`                    | `min_digits`                     | *️⃣ הקשות       |                                                      |
 | `max`                    | `max_digits`                     | *️⃣ הקשות       |                                                      |
@@ -57,7 +57,7 @@ play_ok_mode:| read_none:| read_none_var:| block_change_type_lang:| min:| max:| 
 - נוספה מתודת `call.hangup()` (קיצור ל `call.go_to_folder('hangup')`)
 - ניתן להעביר לאתחול הראוטר אופציות עבור אקספרס ראוטר עצמו - ראה [פירוט בתיעוד express.js](https://expressjs.com/en/api.html#express.router) על האופציות הזמינות.
 - תמיכה בכל הפורמטים הקבילים של [ספריית ms](https://npmjs.com/ms) בהגדרת timeout
-- ‏ניתן להעביר בערך `none_val` גם ערכים פרימיטיביים אחרים - לדוגמה `null`, `false` או `""` והערך שיתקבל מהread במקרה של חוסר תגובה יהיה הערך הפרימיטיבי שהוגדר.
+- ‏ניתן להעביר בערך `empty_val` גם ערכים פרימיטיביים אחרים - לדוגמה `null`, `false` או `""` והערך שיתקבל מהread במקרה של חוסר תגובה יהיה הערך הפרימיטיבי שהוגדר.
 - מערכת אוונטים - כרגע רק האוונטים: `new_call`, `call_hangup`, `call_continue`. מקבל כארגומנט את מופע השיחה, ראה דוגמה ב[example.js](example.js).
 
 ### תיקוני באגים ושיפורים

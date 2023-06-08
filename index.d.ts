@@ -64,8 +64,8 @@ type TapOps = GeneralTapOps & {
     replace_char?: String;
     digits_allowed?: Array<Number | String>;
     amount_attempts?: Number;
-    allow_none?: Boolean;
-    none_val: String;
+    allow_empty?: Boolean;
+    empty_val: String;
     block_change_type_lang: Boolean;
 };
 
