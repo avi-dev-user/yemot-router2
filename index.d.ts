@@ -81,7 +81,7 @@ type SstOps = GeneralTapOps & {
 type RecordOps = GeneralTapOps & {
     path: String;
     file_name: String;
-    no_save_menu: Boolean;
+    no_confirm_menu: Boolean;
     save_on_hangup: Boolean;
     append_to_existing_file: Boolean;
     min_length?: Number;
