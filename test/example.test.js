@@ -1,6 +1,6 @@
 const request = require('supertest');
+const { CallSimulator } = require('./utils');
 const { app: exampleApp, router } = require('../example');
-const crypto = require('crypto');
 const qs = require('qs');
 
 describe('example.js file', () => {
@@ -9,12 +9,14 @@ describe('example.js file', () => {
 
     beforeAll(async () => {
         server = await exampleApp.listen(randomPort);
-        console.log(`server listening on port ${randomPort}`);
+        console.log(`test server listening on port ${randomPort}`);
     });
 
     afterAll(async () => {
         await server.close();
     });
+
+    const callSimulator = new CallSimulator(randomPort);
 
     it('should return 200 and not valid yemot request message', async () => {
         const response = await request(`http://localhost:${randomPort}`).get('/');
@@ -22,50 +24,40 @@ describe('example.js file', () => {
         expect(response.body.message).toBe('the request is not valid yemot request');
     });
 
-    const callId = crypto.randomBytes(20).toString('hex');
-    const YFCallId = crypto.randomBytes(20).toString('hex');
-    const query = {
-        ApiCallId: callId,
-        ApiYFCallId: YFCallId,
-        ApiDID: '0772222770',
-        ApiRealDID: '0772222770',
-        ApiPhone: '0527000000',
-        ApiExtension: '',
-        ApiTime: new Date().getTime().toString()
-    };
-
     it('should return valid read response', async () => {
-        const response = await request(`http://localhost:${randomPort}`).get(`/?${qs.stringify(query)}`);
+        const response = await callSimulator.get();
         expect(response.text).toBe('read=t-היי, תקיש 10=val_1,no,2,2,7,No,no,no,,10,,,None,');
     });
 
-    it('should call added to active calls', () => {
-        expect(router.activeCalls[callId].ApiCallId).toBe(query.ApiCallId);
+    it('should call added to active calls', async () => {
+        expect(Object.prototype.hasOwnProperty.call(router.activeCalls, callSimulator.values.ApiCallId)).toBe(true);
     });
-
-    it('should all query params added to call.values', () => {
-        expect(router.activeCalls[callId].values).toEqual(query);
+    it('should all query params added to call.values', async () => {
+        const call = router.activeCalls[callSimulator.values.ApiCallId];
+        for (const [key, value] of Object.entries(callSimulator.values)) {
+            expect(call[key]).toBe(value);
+        }
     });
 
     it('should return cannot POST / when use router.get', async () => {
-        const response = await request(`http://localhost:${randomPort}`).post('/');
+        const response = await callSimulator.post();
         expect(response.statusCode).toBe(404);
-        expect(response.error.message).toBe('cannot POST / (404)');
+        expect(response.error.message).toBe(`cannot POST /?${qs.stringify(callSimulator.values)} (404)`);
         expect(response.text).toMatch('Cannot POST /');
     });
 
-    query.val_1 = '10';
     it('should continue to next read', async () => {
-        const response = await request(`http://localhost:${randomPort}`).get(`/?${qs.stringify(query)}`);
+        callSimulator.values.val_1 = '10';
+        const response = await callSimulator.get();
         expect(response.text).toBe('read=t-שלום, אנא הקש את שמך המלא=val_2,no,,1,7,HebrewKeyboard,no,no,,,,,None,');
     });
 
     it('should return valid hangup response and remove call from active calls', async () => {
-        query.ApiHangup = '';
-        query.hangup = 'yes';
+        callSimulator.values.ApiHangup = '';
+        callSimulator.values.hangup = 'yes';
 
-        const response = await request(`http://localhost:${randomPort}`).get(`/?${qs.stringify(query)}`);
+        const response = await callSimulator.get();
         expect(response.body.message).toBe('hangup');
-        expect(router.activeCalls[callId]).toBeUndefined();
+        expect(router.activeCalls[callSimulator.values.ApiCallId]).toBeUndefined();
     });
 });
