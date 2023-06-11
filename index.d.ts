@@ -36,7 +36,7 @@ export type Call = {
 };
 
 type Msg = {
-    type: 'file' | 'text' | 'speech' | 'digits' | 'Number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH';
+    type: 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH';
     data:
         | String
         | Number

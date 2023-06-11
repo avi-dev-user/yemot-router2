@@ -14,7 +14,7 @@ class CallSimulator {
             ApiRealDID: '07722225555',
             ApiPhone: '0527000000',
             ApiExtension: '',
-            ApiTime: new Date().getTime().toString(),
+            ApiTime: new Date().getTime().toString()
         };
     }
 
