@@ -86,10 +86,36 @@ describe('test read defaults and options', () => {
                 typing_playback_mode: 'Digits'
             });
         });
+        const response = await request(`http://localhost:${randomPort}`).get('/read_tap_2');
+        expect(response.statusCode).toBe(200);
     });
 
     it('should return valid read tap response - 2', async () => {
         const response = await new CallSimulator(randomPort).get('/read_tap_2');
         expect(response.text).toBe('read=t-hello world=val_1,no,,1,7,Digits,yes,yes,,,,,None,');
+    });
+
+    it('should response is native null (in empty_val)', async () => {
+        const callSimulator = new CallSimulator(randomPort);
+        router.get('/read_tap_3', async (call) => {
+            const resp = await call.read([{
+                type: 'text',
+                data: 'hello world'
+            }], 'tap', {
+                allow_empty: true,
+                empty_val: null
+            });
+            expect(resp).toBe(null);
+            return call.id_list_message([{
+                type: 'text',
+                data: 'bye bye'
+            }]);
+        });
+        await callSimulator.get('/read_tap_3');
+        callSimulator.values.val_1 = 'null';
+        await callSimulator.get('/read_tap_3')
+            .then((response) => {
+                expect(response.text).toBe('id_list_message=t-bye bye&');
+            });
     });
 });
