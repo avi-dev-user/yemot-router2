@@ -1,88 +1,121 @@
-export declare function YemotRouter(options?: { timeout: number, printLog: boolean, uncaughtErrorsHandler: function }): YemotRouter;
+import { EventEmitter } from 'events';
+export declare function YemotRouter(options?: { timeout: Number; printLog: Boolean; uncaughtErrorHandler: function }): YemotRouter;
 
+type CallHandler = (p: Call) => void;
 interface YemotRouter {
-    get: (path: string, handler: Handler) => void;
-    post: (path: string, handler: Handler) => void;
-    all: (path: string, handler: Handler) => void;
+    get: (path: String, handler: CallHandler) => void;
+    post: (path: String, handler: CallHandler) => void;
+    all: (path: String, handler: CallHandler) => void;
+    deleteCallL: (callId: String) => void;
+    events: EventEmitter;
+    defaults: {
+        printLog?: Boolean;
+        read?: {
+            timeout?: Number;
+            tap?: TapOps;
+            stt?: SstOps;
+            record?: RecordOps;
+        };
+        id_list_message?: idListMessageOptions;
+    }
 }
+
 export type Call = {
-    did: string;
-    phone: string;
-    real_did: string;
-    callId: string;
-    extension: string;
-    query: object;
+    did: String;
+    phone: String;
+    real_did: String;
+    callId: String;
+    extension: String;
 
-    read(messages: [msg_data], mode?: mode, options?: read_options): Promise<String | false>;
-
-    go_to_folder(folder: string): void;
-
-    id_list_message(data: [msg_data], wait_to_more_action: boolean): void;
-
-    routing_yemot(phone: string): void;
-
+    read(messages: Msg[], mode?: 'tap' | 'stt' | 'record', options?: TapOps | RecordOps | SstOps): Promise<String | false>;
+    go_to_folder(target: String): void;
+    id_list_message(messages: Msg[], options?: idListMessageOptions): void;
+    routing_yemot(number: String): void;
     restart_ext(): void;
+    hangup(): void;
 };
 
-type Handler = (p: Call) => void;
-
-type msg_data = [{ type: msg_data_type; data: string }];
-
-type msg_data_type = 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH';
-
-type mode = 'tap' | 'stt' | 'record';
-
-type read_options = {
-    val_name: string;
-    re_enter_if_exists: boolean;
-    max: number;
-    min: number;
-    sec_wait: number;
-    play_ok_mode: play_ok_mode;
-    block_asterisk: boolean;
-    block_zero: boolean;
-    replace_char: string;
-    digits_allowed: (number | string)[];
-    amount_attempts: number;
-    read_none: boolean;
-    read_none_var: string;
-    block_change_type_lang: boolean;
-
-    lang: string;
-    allow_typing: boolean;
-
-    path: string;
-    file_name: string;
-    record_ok: boolean;
-    record_hangup: boolean;
-    record_attach: boolean;
+type Msg = {
+    type: 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH';
+    data:
+        | String
+        | Number
+        | {
+              time?: String;
+              zone?: String;
+              difference?: String;
+          };
+    removeInvalidChars?: Boolean;
 };
 
-type play_ok_mode = 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';
+type GeneralOps = {
+    val_name?: String;
+    re_enter_if_exists?: Boolean;
+    removeInvalidChars?: Boolean;
+};
+
+type TapOps = GeneralTapOps & {
+    max_digits?: Number;
+    min_digits?: Number;
+    sec_wait?: Number;
+    typing_playback_mode?: 'Number' | 'Digits' | 'File' | 'TTS' | 'Alpha' | 'No' | 'HebrewKeyboard' | 'EmailKeyboard' | 'EnglishKeyboard' | 'DigitsKeyboard' | 'TeudatZehut' | 'Price' | 'Time' | 'Phone' | 'No';
+    block_asterisk_key?: Boolean;
+    block_zero_key?: Boolean;
+    replace_char?: String;
+    digits_allowed?: Array<Number | String>;
+    amount_attempts?: Number;
+    allow_empty?: Boolean;
+    empty_val: String;
+    block_change_type_lang: Boolean;
+};
+
+type SstOps = GeneralTapOps & {
+    lang: String;
+    block_typing?: Boolean;
+    max_digits?: Number;
+    use_records_recognition_engine?: Boolean;
+    quiet_max?: Number;
+    length_max?: Number;
+};
+
+type RecordOps = GeneralTapOps & {
+    path: String;
+    file_name: String;
+    no_confirm_menu: Boolean;
+    save_on_hangup: Boolean;
+    append_to_existing_file: Boolean;
+    min_length?: Number;
+    max_length?: Number;
+};
+
+type idListMessageOptions = {
+    removeInvalidChars?: Boolean;
+    prependToNextAction?: Boolean;
+};
+
+class CallError extends Error {
+    name: String;
+    message: String;
+    callerFile: String;
+    call: Call;
+    date: Date;
+    isYemotRouterError: Boolean;
+    constructor ({ message, call = null }) {
+    }
+}
+
+class ExitError extends CallError {
+    constructor(call: Call, context: Object) {}
+}
+
+class HangupError extends CallError { }
+
+class TimeoutError extends CallError {
+    constructor(call: Call) { }
+}
 
 export const errors = {
     ExitError,
+    HangupError,
+    TimeoutError
 };
-
-class ExitError extends Error {
-    constructor(call, ...params) {
-        // Pass remaining arguments (including vendor specific ones) to parent constructor
-        super(...params);
-
-        this.call = new Call();
-
-        this.name = 'ExitError';
-        this.date = new Date();
-    }
-}
-class HangupError extends ExitError {
-    constructor(...params) {
-        this.name = 'HangupError';
-    }
-}
-
-class TimeoutError extends ExitError {
-    constructor(...params) {
-        this.name = 'TimeoutError';
-    }
-}
