@@ -58,7 +58,7 @@ play_ok_mode:| read_none:| read_none_var:| block_change_type_lang:| min:| max:| 
 - ניתן להעביר לאתחול הראוטר אופציות עבור אקספרס ראוטר עצמו - ראה [פירוט בתיעוד express.js](https://expressjs.com/en/api.html#express.router) על האופציות הזמינות.
 - תמיכה בכל הפורמטים הקבילים של [ספריית ms](https://npmjs.com/ms) בהגדרת timeout
 - ‏ניתן להעביר בערך `empty_val` גם ערכים פרימיטיביים אחרים - לדוגמה `null`, `false` או `""` והערך שיתקבל מהread במקרה של חוסר תגובה יהיה הערך הפרימיטיבי שהוגדר.
-- [מערכת אוונטים](./README.md#Events) - כרגע האוונטים: `new_call`, `call_hangup`, `call_continue`. מקבל כארגומנט את מופע השיחה, ראה דוגמה ב[example.js](example.js).
+- [מערכת אוונטים](./README.md#Events) - כרגע האוונטים: `new_call`, `call_hangup`, `call_continue`. מקבל כארגומנט את מופע השיחה, ראה [דוגמה](./example.js#L14-L24).
 
 ### תיקוני באגים ושיפורים
 
