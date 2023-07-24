@@ -4,9 +4,6 @@
     "config:base"
   ],
   "rangeStrategy": "bump",
-  "schedule": [
-    "every weekend"
-  ],
   "packageRules": [
     {
       "depTypeList": ["devDependencies"],
