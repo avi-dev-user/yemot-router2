@@ -4,6 +4,7 @@
     "config:base"
   ],
   "rangeStrategy": "bump",
+  "labels": ["dependencies"],
   "packageRules": [
     {
       "depTypeList": ["devDependencies"],
