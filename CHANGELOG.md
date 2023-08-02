@@ -115,6 +115,10 @@ play_ok_mode:| read_none:| read_none_var:| block_change_type_lang:| min:| max:| 
 
 תוקנה האופציה timeout באתחול הראוטר.
 
+### ‏5.1.4
+
+תוקן באג בid_list_message ללא שרשור לפעולה.
+
 ## ‏4.0.0
 
 בגרסה 4.0.0 שינוי משמעותי:
