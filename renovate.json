@@ -8,14 +8,20 @@
   "packageRules": [
     {
       "depTypeList": ["devDependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchCurrentVersion": "!/^0/",
       "automerge": true,
-      "automergeType": "branch"
+      "automergeType": "branch",
+      "automergeSchedule": ["before 20pm on the first day of the month"]
     },
     {
       "depTypeList": ["dependencies"],
-      "matchUpdateTypes": ["patch"],
+      "matchPackageNames": [ "@types/node" ],
+      "automerge": true,
+      "automergeType": "branch",
+      "automergeSchedule": ["before 20pm on the first day of the month"]
+    },
+    {
+      "depTypeList": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
       "matchCurrentVersion": "!/^0/",
       "automerge": true,
       "automergeType": "branch"
