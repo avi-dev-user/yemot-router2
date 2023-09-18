@@ -7,10 +7,11 @@
   "labels": ["dependencies"],
   "packageRules": [
     {
-      "depTypeList": ["devDependencies"],
+      "depTypeList": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
       "automerge": true,
-      "automergeType": "branch",
-      "automergeSchedule": ["before 20pm on the first day of the month"]
+      "automergeType": "branch"
     },
     {
       "depTypeList": ["dependencies"],
@@ -20,11 +21,10 @@
       "automergeSchedule": ["before 20pm on the first day of the month"]
     },
     {
-      "depTypeList": ["dependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchCurrentVersion": "!/^0/",
+      "depTypeList": ["devDependencies"],
       "automerge": true,
-      "automergeType": "branch"
+      "automergeType": "branch",
+      "automergeSchedule": ["before 20pm on the first day of the month"]
     }
   ]
 }
