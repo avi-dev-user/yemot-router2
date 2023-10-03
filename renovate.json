@@ -16,15 +16,13 @@
     {
       "depTypeList": ["dependencies"],
       "matchPackageNames": [ "@types/node" ],
-      "automerge": true,
-      "automergeType": "branch",
-      "automergeSchedule": ["before 20pm on the first day of the month"]
+      "dependencyDashboardApproval": true,
+      "groupName": "devDependencies"
     },
     {
       "depTypeList": ["devDependencies"],
-      "automerge": true,
-      "automergeType": "branch",
-      "automergeSchedule": ["before 20pm on the first day of the month"]
+      "dependencyDashboardApproval": true,
+      "groupName": "devDependencies"
     }
   ]
 }
