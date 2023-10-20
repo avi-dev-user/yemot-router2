@@ -68,30 +68,7 @@ play_ok_mode:| read_none:| read_none_var:| block_change_type_lang:| min:| max:| 
 ### ‏6.1.0
 
 - נוספה החזרת בוליאני מ`deleteCall` האם השיחה היתה קיימת או לא
-- תוקנו הטייפים (DTS) עבור שימוש בספרייה עם טייפסקריפט:
-
-#### בעיות ידועות
-##### ‏`app.use(router)`
-בשימוש בראוטר עם אקספרס -
-```ts
-const router = YemotRouter()
-app.use(router)
-```
-תוצג שגיאת טייפ. הפיתרון כרגע:
-```ts
-const { Router } = require('express')
-const router = YemotRouter()
-app.use(router.asExpressRouter)
-```
-
-##### הגדרת ‏`empty_val` שאינו מסוג string
-כרגע הDTS לא מוגדר להסיק את הטייפ אוטומטית, ויש להגדיר אותו ידנית עם `as`, דוגמה:
-```ts
-const res = await call.read([{ type: 'text', data: 'please type one' }], 'tap', {
-    allow_empty: true,
-    empty_val: null,
-}) as string | null;
-```
+- תוקנו הטייפים (DTS) עבור שימוש בספרייה עם טייפסקריפט  - **ראה [README.md#TypeScript](./README.md#typescript) לבעיות ידועות**
 
 ### ‏6.0.3
 
