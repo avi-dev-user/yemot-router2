@@ -1,7 +1,2 @@
-const YemotRouter = require('./lib/yemot_router');
-const errors = require('./lib/errors');
-
-module.exports = {
-    YemotRouter,
-    ...errors
-};
+export { default as YemotRouter } from './lib/yemot_router.js';
+export * from './lib/errors.js';

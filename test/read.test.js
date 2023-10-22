@@ -1,7 +1,8 @@
-const { CallSimulator } = require('./utils');
-const express = require('express');
-const { YemotRouter } = require('../index');
-const request = require('supertest');
+import { describe, expect } from '@jest/globals';
+import { CallSimulator } from './utils.js';
+import express from 'express';
+import { YemotRouter } from '../index.js';
+import request from 'supertest';
 
 describe('test read defaults and options', () => {
     const randomPort = Math.floor(Math.random() * 10000) + 10000;

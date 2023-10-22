@@ -1,8 +1,10 @@
-const express = require('express');
-const app = express();
-const { YemotRouter } = require('./index');
+import express from 'express';
+import { YemotRouter } from './index.js';
+import { fileURLToPath } from 'url';
+import process from 'process';
+export const app = express();
 
-const router = YemotRouter({
+export const router = YemotRouter({
     printLog: true,
     uncaughtErrorHandler: (error, call) => {
         console.log(`Uncaught error in ${call.req.path} from ${call.phone}. error stack: ${error.stack}`);
@@ -62,10 +64,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
 
 const port = 3000;
-if (module === require.main) {
+const isMain = process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
     app.listen(port, () => {
         console.log(`example yemot-router2 running on port ${port}`);
     });
 }
-
-module.exports = { app, router };

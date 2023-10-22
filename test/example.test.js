@@ -1,7 +1,7 @@
-const request = require('supertest');
-const { CallSimulator } = require('./utils');
-const { app: exampleApp, router } = require('../example');
-const qs = require('qs');
+import request from 'supertest';
+import { CallSimulator } from './utils';
+import { app as exampleApp, router } from '../example.js';
+import qs from 'qs';
 
 describe('example.js file', () => {
     const randomPort = Math.floor(Math.random() * 10000) + 10000;

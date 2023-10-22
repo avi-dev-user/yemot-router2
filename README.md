@@ -30,7 +30,7 @@ npm install yemot-router2
 הספריה עובדת על ידי חיקוי של Express Router, כך שאופן השימוש הוא די דומה. דוגמה:
 
 ```js
-const { YemotRouter } = require('yemot-router2');
+import { YemotRouter } from 'yemot-router2';
 const router = YemotRouter();
 
 router.get('/', async (call) => {
@@ -574,7 +574,7 @@ async function runBigJob(call) {
 כדי להריץ קוד לאחר החזרת התשובה, יש לתפוס את השגיאה שנזרקת (במקרה שהיא שגיאת `ExitError` פנימית כנ"ל):
 
 ```js
-const { ExitError } = require('yemot-router2');
+import { ExitError } from 'yemot-router2';
 async function runBigJob (call) {
     try {
         call.id_list_message([{

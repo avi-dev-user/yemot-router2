@@ -1,8 +1,8 @@
-const request = require('supertest');
-const qs = require('qs');
-const crypto = require('crypto');
+import request from 'supertest';
+import qs from 'qs';
+import crypto from 'crypto';
 
-class CallSimulator {
+export class CallSimulator {
     #port;
     constructor (port) {
         this.#port = port;
@@ -26,7 +26,3 @@ class CallSimulator {
         return request(`http://localhost:${this.#port}`).post(`${path}?${qs.stringify(this.values)}`);
     }
 }
-
-module.exports = { CallSimulator };
-
-module.exports = { CallSimulator };
