@@ -11,7 +11,7 @@
     "example": "node --watch example.js",
     "lint": "eslint . --fix --ext .js,.cjs,.mjs --ignore-path .gitignore",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "prepublishOnly": "rollup index.js --file index.cjs --format cjs --external"
+    "prepublishOnly": "rollup --config rollup.config.js"
   },
   "repository": {
     "type": "git",
