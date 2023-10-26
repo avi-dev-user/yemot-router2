@@ -163,6 +163,9 @@ export interface SstOptions extends GeneralOptions {
      */
     block_typing?: boolean
     max_digits?: number
+    /**
+     * @default false
+     */
     use_records_recognition_engine?: boolean
     quiet_max?: number
     length_max?: number
