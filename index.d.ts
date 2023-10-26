@@ -179,7 +179,8 @@ export interface RecordOptions extends GeneralOptions {
      */
     no_confirm_menu?: boolean
     /**
-     * @default true
+     * האם לשמור את ההקלטה לקובץ אם המשתמש ניתק באמצע ההקלטה
+     * @default false
      */
     save_on_hangup?: boolean
     /**
