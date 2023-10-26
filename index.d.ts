@@ -117,13 +117,13 @@ export interface Msg {
     removeInvalidChars?: boolean
 }
 
-interface GeneralOptions {
+interface GeneralReadOptions {
     val_name?: string
     re_enter_if_exists?: boolean
     removeInvalidChars?: boolean
 }
 
-export interface TapOptions extends GeneralOptions {
+export interface TapOptions extends GeneralReadOptions {
     max_digits?: number
     min_digits?: number
     sec_wait?: number
@@ -156,7 +156,7 @@ export interface TapOptions extends GeneralOptions {
     block_change_keyboard?: boolean
 }
 
-export interface SstOptions extends GeneralOptions {
+export interface SstOptions extends GeneralReadOptions {
     lang?: string
     /**
      * @default false
@@ -171,7 +171,7 @@ export interface SstOptions extends GeneralOptions {
     length_max?: number
 }
 
-export interface RecordOptions extends GeneralOptions {
+export interface RecordOptions extends GeneralReadOptions {
     path?: string
     file_name?: string
     /**
