@@ -3,6 +3,12 @@
 
 הספריה עוקבת אחרי [Semantic Versioning](https://semver.org) ([עברית](https://semver.org/lang/he/)).
 
+## ‏6.1.3
+
+- ברירת המחדל של ההגדרה ‫`save_on_hangup` ‫(`record`) היתה `true`, למרות שעל פי התיעוד היא אמורה להיות `false`. **כעת ברירת המחדל תוקנה והיא `false`**.
+- נוספה ההגדרה ‫`use_records_recognition_engine` ‫(`stt`) שהופיע בתיעוד אך היתה חסרה בפועל
+- תיקון: ‫`router.asExpressRouter` ‫(TypeScript בלבד)
+
 ## ‏6.1.2
 
 - תיקון באג עבור פרויקטים שכתובים ב-CommonJS
