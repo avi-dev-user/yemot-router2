@@ -3,6 +3,7 @@ import { type Router, type Request, type Response } from 'express';
 
 interface Defaults {
     printLog?: boolean
+    removeInvalidChars?: boolean
     read?: {
         timeout?: number
         tap?: TapOptions

@@ -466,6 +466,7 @@ const messages = [{
 const router = YemotRouter({
     printLog: true,
     defaults: {
+        removeInvalidChars: true,
         read: {
             timeout: 30000
         }
