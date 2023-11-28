@@ -303,7 +303,7 @@ export interface Call {
  */
 export interface Msg {
     type: 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH'
-    data: string | number | { time?: string, zone?: string, difference?: string }
+    data: string | number | { time?: string, zone?: string, difference?: string } | { musicName: string, maxSec?: number }
      /**
      * האם להסיר אוטומטית תווים לא חוקיים (`.`,`-`,`'`,`"`,`&`) מתשובות הקראת טקסט<br>
      * ,באם לא מוגדרת הסרה (ברירת מחדל), תיזרק שגיאה<br>
