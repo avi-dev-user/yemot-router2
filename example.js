@@ -33,8 +33,7 @@ router.get('/', async (call) => {
         digits_allowed: ['10']
     });
 
-    const nameMessages = [{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }];
-    const name = await call.read(nameMessages, 'tap', { typing_playback_mode: 'HebrewKeyboard' });
+    const name = await call.read([{ type: 'text', data: 'שלום, אנא הקש את שמך המלא' }], 'tap', { typing_playback_mode: 'HebrewKeyboard' });
     console.log('name:', name);
 
     const addressFilePath = await call.read(
