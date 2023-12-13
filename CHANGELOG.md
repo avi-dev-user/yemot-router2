@@ -3,6 +3,11 @@
 
 הספריה עוקבת אחרי [Semantic Versioning](https://semver.org) ([עברית](https://semver.org/lang/he/)).
 
+## ‏6.1.6
+
+- תיקון טייפ עבור `typing_playback_mode` מסוג `Number`
+- עדכון הדוגמה (`example.js`) עם הדגמה לJSDoc שגורם ל-IDE להציג IntelliSense כראוי
+
 ## ‏6.1.5
 
 תיקון טייפ עבור הודעה מסוג `music_on_hold`
