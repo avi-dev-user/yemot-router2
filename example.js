@@ -25,7 +25,8 @@ router.events.on('new_call', (call) => {
     console.log(`[example.js] new call ${call.callId} from ${call.phone}`);
 });
 
-router.get('/', async (call) => {
+/** @param {import('./index.js').Call} call */
+async function callHandler (call) {
     // לא ניתן להתקדם ללא הקשת 10 וסולמית
     await call.read([{ type: 'text', data: 'היי, תקיש 10' }], 'tap', {
         max_digits: 2,
@@ -55,7 +56,9 @@ router.get('/', async (call) => {
         type: 'system_message',
         data: 'M1399' // תגובתך התקבלה בהצלחה
     }]);
-});
+};
+
+router.get('/', callHandler);
 
 // this must if you want to use post requests (api_url_post=yes)
 app.use(express.urlencoded({ extended: true }));
