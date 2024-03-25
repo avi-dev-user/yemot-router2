@@ -37,7 +37,7 @@ const router = YemotRouter();
 router.get('/', async (call) => {
     return call.id_list_message([{
         type: 'text',
-        text: 'שלום עולם'
+        data: 'שלום עולם'
     }])
 });
 ```
