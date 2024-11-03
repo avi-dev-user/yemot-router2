@@ -120,10 +120,10 @@ export function YemotRouter (options?: YemotRouterOptions): {
      * const app = express();
      * const router = YemotRouter();
      * 
-     * app.use(router.asExpressRouter()); // 👈👈👈
+     * app.use(router.asExpressRouter); // 👈👈👈
      * ```
      */
-    asExpressRouter: () => Router
+    asExpressRouter: Router
 };
 
 // based of https://tchumim.com/post/157692, https://tchumim.com/post/157706
