@@ -3,6 +3,10 @@
 
 הספריה עוקבת אחרי [Semantic Versioning](https://semver.org) ([עברית](https://semver.org/lang/he/)).
 
+## ‏6.1.8
+
+- תיקון לטייפ של `asExpressRouter`
+
 ## ‏6.1.7
 
 - הוספת ולידציה למבנה ההודעה ב‫`id_list_message` (כמו ב‫`read`)
