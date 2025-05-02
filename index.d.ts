@@ -1,6 +1,42 @@
 import { type EventEmitter } from 'events';
 import { type Router, type Request, type Response } from 'express';
+export { SYSTEM_MESSAGE_CODES, SystemMessageCode } from './system-messages'
+import { SystemMessageCode } from './system-messages';
 
+/**
+* הגדרות למיקום וזמן עבור סוג הודעה 'zmanim'
+*/
+export interface ZmanimData {
+   time?: string;
+   zone?: string;
+   difference?: string;
+}
+
+/**
+* הגדרות למוזיקה בהמתנה עבור סוג הודעה 'music_on_hold'
+*/
+export interface MusicOnHoldData {
+   musicName: string;
+   maxSec?: number;
+}
+
+/**
+* מייצג "הודעה" הניתנת להשמעה ב‫`read`/`id_list_message`
+*/
+export type Msg =
+   | ({ type: 'file'; data: string; removeInvalidChars?: boolean })
+   | ({ type: 'text'; data: string; removeInvalidChars?: boolean })
+   | ({ type: 'speech'; data: string; removeInvalidChars?: boolean })
+   | ({ type: 'digits'; data: number | string; removeInvalidChars?: boolean })
+   | ({ type: 'number'; data: number | string; removeInvalidChars?: boolean })
+   | ({ type: 'alpha'; data: string; removeInvalidChars?: boolean })
+   | ({ type: 'zmanim'; data: ZmanimData; removeInvalidChars?: boolean })
+   | ({ type: 'go_to_folder'; data: string; removeInvalidChars?: boolean })
+   | ({ type: 'system_message'; data: SystemMessageCode; removeInvalidChars?: boolean })
+   | ({ type: 'music_on_hold'; data: MusicOnHoldData; removeInvalidChars?: boolean })
+   | ({ type: 'date'; data: string; removeInvalidChars?: boolean })
+   | ({ type: 'dateH'; data: string; removeInvalidChars?: boolean });
+   
 interface Defaults {
     /**
      * האם להדפיס לוג מפורט על כל קריאה לשרת, שיחה חדשה, ניתוק ועוד. שימושי לפיתוח ודיבוג<br>
@@ -303,7 +339,7 @@ export interface Call {
  */
 export interface Msg {
     type: 'file' | 'text' | 'speech' | 'digits' | 'number' | 'alpha' | 'zmanim' | 'go_to_folder' | 'system_message' | 'music_on_hold' | 'date' | 'dateH'
-    data: string | number | { time?: string, zone?: string, difference?: string } | { musicName: string, maxSec?: number }
+    data: string | number | SystemMessageCode | { time?: string, zone?: string, difference?: string } | { musicName: string, maxSec?: number }
      /**
      * האם להסיר אוטומטית תווים לא חוקיים (`.`,`-`,`'`,`"`,`&`) מתשובות הקראת טקסט<br>
      * ,באם לא מוגדרת הסרה (ברירת מחדל), תיזרק שגיאה<br>
